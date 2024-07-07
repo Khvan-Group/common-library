@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-func AuthMiddleware(role string, next http.Handler) http.Handler {
+func AuthMiddleware(next http.Handler, roles ...string) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		token, err := verifyToken(r)
 		if err != nil || !token.Valid {
@@ -23,8 +23,8 @@ func AuthMiddleware(role string, next http.Handler) http.Handler {
 			return
 		}
 
-		currentUserRole := claims["role"]
-		if role != "" && currentUserRole != role {
+		currentUserRole := utils.ToString(claims["role"])
+		if len(roles) != 0 && !utils.ContainsString(roles, currentUserRole) {
 			http.Error(w, `{"error": "Доступ запрещен."}`, http.StatusForbidden)
 			return
 		}

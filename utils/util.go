@@ -32,3 +32,12 @@ func ToString(i interface{}) string {
 		return fmt.Sprintf("%v", i)
 	}
 }
+
+func ContainsString(slice []string, target string) bool {
+	for _, s := range slice {
+		if s == target {
+			return true
+		}
+	}
+	return false
+}
