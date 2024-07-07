@@ -2,7 +2,7 @@ package middlewares
 
 import (
 	"fmt"
-	"github.com/dkhvan-dev/alabs_project/common-libraries/utils"
+	"github.com/Khvan-Group/common-library/utils"
 	"github.com/golang-jwt/jwt"
 	"github.com/gorilla/context"
 	"net/http"

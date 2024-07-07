@@ -1,4 +1,4 @@
-module github.com/dkhvan-dev/alabs_project/common-libraries
+module github.com/Khvan-Group/common-library
 
 go 1.22.2
 
