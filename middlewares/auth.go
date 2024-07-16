@@ -9,16 +9,14 @@ import (
 	"strings"
 )
 
-var WHITE_LIST = []string{
+var WHITE_LIST_IPS = []string{
 	"localhost:8082",
 }
 
 func AuthMiddleware(next http.Handler, roles ...string) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		clientIP := r.RemoteAddr
-
-		for _, ip := range WHITE_LIST {
-			if strings.Contains(clientIP, ip) {
+		for _, ip := range WHITE_LIST_IPS {
+			if strings.Contains(r.Host, ip) {
 				next.ServeHTTP(w, r)
 				return
 			}
