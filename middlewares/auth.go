@@ -10,7 +10,7 @@ import (
 )
 
 var WHITE_LIST_IPS = []string{
-	"localhost:8082",
+	"127.0.0.1:8082",
 }
 
 func AuthMiddleware(next http.Handler, roles ...string) http.Handler {
