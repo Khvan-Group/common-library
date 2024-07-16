@@ -15,11 +15,11 @@ var WHITE_LIST_IPS = []string{
 
 func AuthMiddleware(next http.Handler, roles ...string) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		fmt.Println(r.RemoteAddr)
 		fmt.Println(r.Host)
-		fmt.Println(r.RequestURI)
 		for _, ip := range WHITE_LIST_IPS {
-			if strings.Contains(r.Host, ip) {
+			fmt.Println("IP: " + ip)
+			fmt.Println(r.Host == ip)
+			if r.Host == ip {
 				next.ServeHTTP(w, r)
 				return
 			}
