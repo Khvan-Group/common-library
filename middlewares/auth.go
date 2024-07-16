@@ -14,7 +14,7 @@ func AuthMiddleware(next http.Handler, roles ...string) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		isBlogService, err := strconv.ParseBool(r.Header.Get("X-Blog-Service"))
 		if err != nil {
-			panic(err)
+			isBlogService = false
 		}
 
 		if isBlogService {
