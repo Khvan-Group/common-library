@@ -6,23 +6,20 @@ import (
 	"github.com/golang-jwt/jwt"
 	"github.com/gorilla/context"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
-var WHITE_LIST_IPS = []string{
-	"127.0.0.1:8082",
-}
-
 func AuthMiddleware(next http.Handler, roles ...string) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		fmt.Println(r.Host)
-		for _, ip := range WHITE_LIST_IPS {
-			fmt.Println("IP: " + ip)
-			fmt.Println(r.Host == ip)
-			if r.Host == ip {
-				next.ServeHTTP(w, r)
-				return
-			}
+		isBlogService, err := strconv.ParseBool(r.Header.Get("X-Blog-Service"))
+		if err != nil {
+			panic(err)
+		}
+
+		if isBlogService {
+			next.ServeHTTP(w, r)
+			return
 		}
 
 		token, err := verifyToken(r)
