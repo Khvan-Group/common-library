@@ -35,7 +35,7 @@ func AuthMiddleware(next http.Handler, roles ...string) http.Handler {
 		}
 
 		currentUserRole := utils.ToString(claims["role"])
-		if len(roles) != 0 && !utils.ContainsString(roles, currentUserRole) {
+		if len(roles) != 0 && roles[0] != "" && !utils.ContainsString(roles, currentUserRole) {
 			http.Error(w, `{"error": "Доступ запрещен."}`, http.StatusForbidden)
 			return
 		}
