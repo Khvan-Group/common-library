@@ -12,12 +12,12 @@ import (
 
 func AuthMiddleware(next http.Handler, roles ...string) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		isBlogService, err := strconv.ParseBool(r.Header.Get("X-Blog-Service"))
+		isInternalService, err := strconv.ParseBool(r.Header.Get("X-Is-Internal-Service"))
 		if err != nil {
-			isBlogService = false
+			isInternalService = false
 		}
 
-		if isBlogService {
+		if isInternalService {
 			next.ServeHTTP(w, r)
 			return
 		}
