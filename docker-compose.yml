@@ -1,0 +1,75 @@
+version: '3.1'
+services:
+
+  alabs_dev_db:
+    image: postgres:15.2
+    restart: on-failure
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: alabs_dev
+    ports:
+      - 5900:5432
+    container_name: alabs_dev_db
+  blogs_dev_db:
+    image: postgres:15.2
+    restart: on-failure
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: blogs_dev
+    ports:
+      - 5901:5432
+    container_name: blogs_dev_db
+  wallet_dev_db:
+    image: postgres:15.2
+    restart: on-failure
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: wallet_dev
+    ports:
+      - 5902:5432
+    container_name: wallet_dev_db
+  shop_dev_db:
+    image: postgres:15.2
+    restart: on-failure
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: shop_dev
+    ports:
+      - 5903:5432
+    container_name: shop_dev_db
+
+#  auth-service:
+#    image: dkhvandev/auth-service-img:latest
+#    container_name: 'auth-service'
+#    depends_on:
+#      - alabs_dev_db
+#    ports:
+#      - "8081:8081"
+#  blog-service:
+#    image: dkhvandev/blog-service-img:latest
+#    container_name: 'blog-service'
+#    depends_on:
+#      - blogs_dev_db
+#    ports:
+#      - "8082:8082"
+#  wallet-service:
+#    image: dkhvandev/wallet-service-img:latest
+#    container_name: 'wallet-service'
+#    depends_on:
+#      - wallet_dev_db
+#    ports:
+#      - "8083:8083"
+#  shop-service:
+#    image: dkhvandev/shop-service-img:latest
+#    container_name: 'shop-service'
+#    depends_on:
+#      - shop_dev_db
+#    ports:
+#      - "8084:8084"
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    restart: on-failure
+    ports:
+      - 5672:5672
+      - 15672:15672
